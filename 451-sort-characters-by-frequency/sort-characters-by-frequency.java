@@ -1,29 +1,24 @@
+import java.util.*;
+
 class Solution {
     public String frequencySort(String s) {
-        HashMap<Character,Integer> freq = new HashMap<>();
-        for(int i = 0;i<s.length();i++)
-         freq.put(s.charAt(i),freq.getOrDefault(s.charAt(i),0)+1);
+        HashMap<Character, Integer> freq = new HashMap<>();
 
-          LinkedHashMap<Character, Integer> sortedMap = new LinkedHashMap<>();
-        freq.entrySet()
-            .stream()
-            .sorted(Map.Entry.<Character, Integer>comparingByValue().reversed())
-            .forEachOrdered(x -> sortedMap.put(x.getKey(), x.getValue()));
+        for (char c : s.toCharArray()) {
+            freq.put(c, freq.getOrDefault(c, 0) + 1);
+        }
+        List<Map.Entry<Character, Integer>> list = new ArrayList<>(freq.entrySet());
+        list.sort((a, b) -> b.getValue() - a.getValue());
 
-          StringBuilder result = new StringBuilder();
-        for (Map.Entry<Character, Integer> entry : sortedMap.entrySet()) {
+        StringBuilder result = new StringBuilder(s.length());
+        for (Map.Entry<Character, Integer> entry : list) {
             char key = entry.getKey();
             int value = entry.getValue();
-            // Append the character 'value' number of times
             for (int i = 0; i < value; i++) {
                 result.append(key);
             }
         }
 
-        // Convert StringBuilder to String
-        String output = result.toString();
-        return output;
-
-
+        return result.toString();
     }
 }

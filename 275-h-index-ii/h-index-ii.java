@@ -1,9 +1,15 @@
 class Solution {
     public int hIndex(int[] citations) {
         int n = citations.length;
-        for(int i = 0;i<n;i++){
-           if(citations[i]>=n-i) return n-i;
+       int low = 0, high = n-1;
+       while(low<=high){
+        int mid = low + (high-low)/2;
+        if(citations[mid]>=n-mid){
+            high = mid - 1;
         }
-        return 0;
+        else low = mid +1;
+
+       }
+        return n-low;
     }
 }

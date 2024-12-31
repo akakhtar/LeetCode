@@ -6,7 +6,9 @@ class Solution {
        if(dp[len] !=-1) return dp[len];
 
        int count = len>=low?1:0;
-       count += solve(low,high,zero,one,len+zero,dp)+solve(low,high,zero,one,len+one,dp);
+       count += solve(low,high,zero,one,len+zero,dp)%MOD;
+       count += solve(low,high,zero,one,len+one,dp)%MOD;
+      
        dp[len] = count%MOD;
        return dp[len];
     }

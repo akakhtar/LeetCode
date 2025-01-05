@@ -9,10 +9,8 @@ class Solution {
             temp[start] += direction;
             if(end+1 < temp.length) temp[end+1] -= direction;
         }
-        int shiftValue = 0;
-        for(int i = 0;i<temp.length-1;i++){
-            shiftValue += temp[i];
-            temp[i] = shiftValue;
+        for(int i = 1;i<temp.length-1;i++){
+            temp[i] = temp[i]+temp[i-1];
         }
         
          StringBuilder result = new StringBuilder();

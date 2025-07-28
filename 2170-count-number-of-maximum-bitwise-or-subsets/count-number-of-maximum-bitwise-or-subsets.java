@@ -1,17 +1,23 @@
 class Solution {
+     int maxOr = 0;
+     int count = 0;
     public int countMaxOrSubsets(int[] nums) {
-        int totalSubset = 1 << nums.length;
-        int maxBitWise = nums[0];
-        for(int i = 1;i<nums.length;i++)
-           maxBitWise = maxBitWise | nums[i];
-        int count  = 0;
-        for(int i = 0;i<totalSubset;i++){
-            int currBitWise = 0;
-           for(int j = 0;j<nums.length;j++){
-              if((i&(1<<j))>0) currBitWise = currBitWise | nums[j];
-           }
-           if(currBitWise == maxBitWise) count++;
+        for(int num : nums)
+           maxOr |= num;
+
+        dfs(nums,0,0);
+        return count;     
+    }
+
+    public void dfs(int[] nums,int i,int currOr){
+        //base case
+        if(i == nums.length){
+            if(currOr == maxOr) count++;
+            return;
         }
-        return count;   
+
+        dfs(nums,i+1,currOr | nums[i]);
+
+        dfs(nums,i+1,currOr);
     }
 }
